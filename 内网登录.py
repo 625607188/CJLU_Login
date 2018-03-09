@@ -8,13 +8,21 @@ import queue
 import urllib3
 urllib3.disable_warnings()
 
+
 def GetIP():
-    name = socket.getfqdn(socket.gethostname())
+    '''name = socket.getfqdn(socket.gethostname())
     IP = socket.gethostbyname(name)
+    return IP'''
+    url = "https://portal2.cjlu.edu.cn:801/eportal/?c=ACSetting&a=Login&wlanuserip="
+    data = requests.get(url)
+    IP = re.findall('wlanuserip=(.*?)&', data.url)[0]
     return IP
 
+
 def Login(IP,  username,  password):
-    url = 'https://portal2.cjlu.edu.cn:801/eportal/?c=ACSetting&a=Login&wlanuserip='+ IP +'&wlanacip=null&wlanacname=&port=&iTermType=1&mac=000000000000&ip=' + IP +'&redirect=null'
+    url = 'https://portal2.cjlu.edu.cn:801/eportal/?c=ACSetting&a=Login&wlanuserip='+ \
+          IP + '&wlanacip=null&wlanacname=&port=&iTermType=1&mac=000000000000&ip=' + \
+          IP + '&redirect=null'
     data = {}
     data['DDDDD'] = username
     data['upass'] = password
@@ -31,28 +39,33 @@ def Login(IP,  username,  password):
     else:
         return True
 
+
 def Logout():
-    url = 'https://portal2.cjlu.edu.cn:801/eportal/?c=ACSetting&a=Logout&wlanuserip=null&wlanacip=null&wlanacname=&port=&iTermType=1'
-    url_data = requests.get(url, verify = False)
+    url = 'https://portal2.cjlu.edu.cn:801/eportal/?c=ACSetting&a=Logout' \
+          '&wlanuserip=null&wlanacip=null&wlanacname=&port=&iTermType=1'
+    url_data = requests.get(url, verify=False)
+    return url_data
+
 
 def CheckError():
     url = 'https://portal2.cjlu.edu.cn/errcode'
     url_data = requests.get(url, verify = False)
     error = re.findall('ret=\'(.*)\'',url_data.text)[0]
-    if("auth error5" in error):
+    if "auth error5" in error:
         print("本账号已停机")
-    elif("auth error80" in error):
+    elif "auth error80" in error:
         print("本时段禁止上网")
-    elif("auth error" in error):
+    elif "auth error" in error:
         print("密码错误，请输入正确的密码")
-    elif("In use" in error):
+    elif "In use" in error:
         print("登录超过人数限制")
-    elif("no errcode" in error):
+    elif "no errcode" in error:
         print("本IP已经在线")
-    elif("Authentication Fail ErrCode=04" in error):
+    elif "Authentication Fail ErrCode=04" in error:
         print("上网时长/流量已到上限")
     else:
         print("错误代码:"+error)
+
 
 def CheckInternet():
     status_1 = subprocess.run("ping -n 2 -w 40 www.baidu.com", shell=True)
