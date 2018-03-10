@@ -3,8 +3,8 @@
 block_cipher = None
 
 
-a = Analysis(['D:/CJLU/Call_MainWindow.py'],
-             pathex=['D:/CJLU/', 'D:\\CJLU'],
+a = Analysis(['D:/CJLU_Login/Call_MainWindow.py'],
+             pathex=['D:/CJLU_Login/', 'D:\\CJLU_Login'],
              binaries=[],
              datas=[],
              hiddenimports=[],

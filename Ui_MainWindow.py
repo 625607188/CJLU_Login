@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'D:\CJLU\MainWindow.ui'
+# Form implementation generated from reading ui file 'D:\内网登录\MainWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.10.1
 #
@@ -74,7 +74,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "CJLU内网有线登录 V1.0.0"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "CJLU内网有线登录 V1.1.0"))
         self.pushButton_login.setText(_translate("MainWindow", "登录"))
         self.pushButton_logout.setText(_translate("MainWindow", "注销"))
         self.label_account.setText(_translate("MainWindow", "账号："))
